@@ -43,15 +43,15 @@ exports.findAll = (req, res) => {
 
 // Find a single User by Id
 exports.findOne = (req, res) => {
-  User.findById(req.params.id, (err, data) => {
+  User.findByEmail(req.params.email, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Not found User with id ${req.params.id}.`
+          message: `Not found User with id ${req.params.email}.`
         });
       } else {
         res.status(500).send({
-          message: "Error retrieving User with id " + req.params.id
+          message: "Error retrieving User with id " + req.params.email
         });
       }
     } else res.send(data);
@@ -59,8 +59,8 @@ exports.findOne = (req, res) => {
 };
 
 // find all published Users
-exports.findAllPublished = (req, res) => {
-  User.getAllPublished((err, data) => {
+exports.findAllActive = (req, res) => {
+  User.getAllActive((err, data) => {
     if (err)
       res.status(500).send({
         message:
